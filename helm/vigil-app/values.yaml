@@ -1,0 +1,35 @@
+replicaCount: 2
+
+image:
+  repository: maryokpala/vigil-app
+  tag: "2.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  path: /
+  pathType: Prefix
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+probes:
+  readiness:
+    path: /actuator/health
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  liveness:
+    path: /actuator/health
+    initialDelaySeconds: 45
+    periodSeconds: 15
