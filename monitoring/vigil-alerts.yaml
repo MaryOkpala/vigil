@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vigil-alerts
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: vigil-app
+      rules:
+        - alert: VigilAppDown
+          expr: up{job="vigil-app"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Vigil application is down"
+            description: "Vigil app has been unreachable for more than 1 minute"
+
+        - alert: VigilHighMemory
+          expr: container_memory_usage_bytes{namespace="vigil-app"} > 400000000
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Vigil app memory usage is high"
+            description: "Memory usage exceeds 400MB"
+
+        - alert: VigilPodRestarting
+          expr: rate(kube_pod_container_status_restarts_total{namespace="vigil-app"}[5m]) > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Vigil pod is restarting"
+            description: "A Vigil pod has restarted recently"
