@@ -1,24 +1,9 @@
-# Vigil
-
-> Cloud-native observability and GitOps-driven deployments on Kubernetes — every commit auto-deploys, every metric is observable.
-
-## What this project does
-
 Vigil runs a Spring Boot application on Kubernetes with full GitOps and observability:
 
-- **ArgoCD** watches this GitHub repository and automatically deploys every change to the cluster — no manual `kubectl apply` ever
+- **ArgoCD** watches this GitHub repository and automatically deploys every change to the cluster, no manual `kubectl apply` ever
 - **Prometheus** scrapes metrics from all pods, nodes, and the application's `/actuator/prometheus` endpoint
 - **Grafana** visualises everything — cluster health, pod metrics, application performance
 - **AlertManager** fires alerts when pods crash, memory spikes, or the app goes down
-
-## Live endpoints
-
-| Service | URL |
-|---------|-----|
-| Application | http://44.216.162.230:30080 |
-| ArgoCD UI | http://44.216.162.230:31088 |
-| Grafana | http://44.216.162.230:31300 |
-| Prometheus | http://44.216.162.230:31090 |
 
 ## Architecture
 
@@ -47,21 +32,6 @@ Vigil runs a Spring Boot application on Kubernetes with full GitOps and observab
 5. Prometheus scrapes the new pods immediately
 6. Grafana dashboards update in real time
 
-## Repository structure
-vigil/
-├── app/                    # Spring Boot application source
-├── k8s/                    # Kubernetes manifests (ArgoCD syncs this)
-│   ├── namespace.yaml
-│   ├── deployment.yaml
-│   ├── service.yaml
-│   └── ingress.yaml
-├── argocd/                 # ArgoCD Application CRD
-│   └── vigil-app.yaml
-├── monitoring/             # Prometheus rules and ServiceMonitor
-│   ├── vigil-servicemonitor.yaml
-│   └── vigil-alerts.yaml
-└── docs/
-└── architecture.png
 ## Quick start
 
 ```bash
