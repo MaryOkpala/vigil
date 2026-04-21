@@ -16,6 +16,7 @@ public class VigilController {
         response.put("platform", "Kubernetes · k3s");
         response.put("gitops", "ArgoCD");
         response.put("observability", "Prometheus · Grafana");
+        response.put("version", "2.0.0");
         return response;
     }
 

@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: vigil-app
-          image: maryokpala/vigil-app:1.0.0
+          image: maryokpala/vigil-app:2.0.0
           ports:
             - containerPort: 8080
           readinessProbe:
