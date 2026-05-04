@@ -3,14 +3,7 @@
 > A cloud-native GitOps platform where every Git commit triggers an automatic deployment to Kubernetes — no manual commands, no scripts, no human in the loop.
 
 ---
-
-## The problem I set out to solve
-
-Deploying software manually is a liability. Someone SSHes into a server, runs a script, hopes it works. If it breaks at 2am, they find out from a user. If the deployment drifts from what is in Git, nobody knows. If you need to roll back, you are scrambling.
-
-I built Vigil to make deployments automatic, observable, and self-healing. Push a commit. ArgoCD detects it within minutes. The cluster updates itself with a zero-downtime rolling deployment. Prometheus captures every metric from every pod. Grafana shows you exactly what is happening in real time. If something goes wrong, AlertManager fires before a user notices.
-
-Nobody ran a deployment command. Nobody touched the server. Git is the source of truth, and the cluster enforces it.
+Vigil makes deployments automatic, observable, and self-healing. Push a commit. ArgoCD detects it within minutes. The cluster updates itself with a zero-downtime rolling deployment. Prometheus captures every metric from every pod. Grafana shows you exactly what is happening in real time. If something goes wrong, AlertManager fires before a user notices.
 
 ---
 
@@ -51,8 +44,6 @@ What this shows:
 **Auto sync is enabled.** The next commit I push will trigger another deployment automatically.
 
 **The resource tree** shows the full Kubernetes hierarchy — the vigil-app Application manages a Namespace, a Service, a Deployment, and an Ingress. The Deployment manages two ReplicaSets — the current one (`d7485f7d5`) at revision 2 running two pods, and the previous one (`66cb64dc5d`) at revision 1 retained for rollback history.
-
-Two pods. Both running. Both healthy. ArgoCD knows it. And it got there without a single manual command.
 
 ---
 
@@ -184,8 +175,6 @@ git push origin main
 ---
 
 ## What this project demonstrates
-
-Vigil is not a tutorial. The ArgoCD resource graph in the screenshots is real. The Grafana metrics are live. The version 2.0.0 response exists because a GitOps rolling update deployed it automatically.
 
 The pattern — Git as the source of truth, automatic reconciliation, zero-downtime deployments, full observability — is the same pattern used by engineering teams running Kubernetes in production at scale.
 
